@@ -1,19 +1,13 @@
 package bemobile.splanes.com.mylibrary.app
 
 import android.app.Application
-import bemobile.splanes.com.mylibrary.app.dagger.AppComponent
-import bemobile.splanes.com.mylibrary.app.dagger.AppModule
-import bemobile.splanes.com.mylibrary.app.dagger.DaggerAppComponent
+import bemobile.splanes.com.mylibrary.app.koins.appModule
+import bemobile.splanes.com.mylibrary.app.koins.networkModule
+import org.koin.android.ext.android.startKoin
 
 class App : Application() {
-
-    val component: AppComponent by lazy {
-        DaggerAppComponent.builder().appModule(AppModule(this)).build()
-    }
-
     override fun onCreate() {
         super.onCreate()
-        component.inject(this)
+        startKoin(androidContext = this, modules = listOf(appModule, networkModule))
     }
-
 }

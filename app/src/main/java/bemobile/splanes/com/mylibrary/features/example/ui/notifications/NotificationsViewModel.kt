@@ -1,4 +1,4 @@
-package bemobile.splanes.com.mylibrary.ui.notifications
+package bemobile.splanes.com.mylibrary.features.example.ui.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
