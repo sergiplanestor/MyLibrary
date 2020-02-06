@@ -7,6 +7,10 @@ import retrofit2.http.*
 
 interface ApiRepository {
 
+    @POST("/login")
+    @Headers("Accept: application/json", "charset: UTF-8")
+    fun doLogin() : Single<String>
+
     @GET("/books")
     @Headers("Accept: application/json", "charset: UTF-8")
     fun fetchBooks() : Single<List<Book>>

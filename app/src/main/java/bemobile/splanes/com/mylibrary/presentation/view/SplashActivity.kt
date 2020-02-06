@@ -10,13 +10,13 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
 // Lifecycle
 // =================================================================================================
 
-    override fun initializeViews() {
-        super.initializeViews()
-    }
-
     override fun loadData() {
         super.loadData()
-        getViewModel().getBooks()
+        checkRegisterState()
+    }
+
+    private fun checkRegisterState() {
+        getViewModel().getRegisterState()
     }
 
 // =================================================================================================

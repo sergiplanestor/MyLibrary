@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import bemobile.splanes.com.core.domain.Book
+import bemobile.splanes.com.core.domain.states.RegisterState
 import bemobile.splanes.com.core.interactor.book.GetBooksUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -14,12 +15,21 @@ class SplashViewModel : ViewModel(), KoinComponent {
 
     private val mUseCase : GetBooksUseCase by inject()
 
+    fun getRegisterState() : LiveData<RegisterState> {
+        val liveData = MutableLiveData<RegisterState>()
+
+
+
+        return liveData
+    }
+
+
     fun getBooks() : LiveData<List<Book>> {
 
         val liveData = MutableLiveData<List<Book>>()
         runBlocking(Dispatchers.IO) {
-            val books = mUseCase.invoke()
-            liveData.postValue(books)
+            /*val books = mUseCase.invoke()
+            liveData.postValue(books)*/
         }
 
         return liveData
