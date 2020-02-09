@@ -1,5 +1,7 @@
 package bemobile.splanes.com.mylibrary.presentation.view
 
+import android.content.Intent
+import androidx.lifecycle.Observer
 import bemobile.splanes.com.mylibrary.R
 import bemobile.splanes.com.mylibrary.presentation.common.BaseActivity
 import bemobile.splanes.com.mylibrary.presentation.viewmodel.SplashViewModel
@@ -16,7 +18,13 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     }
 
     private fun checkRegisterState() {
-        getViewModel().getRegisterState()
+        getViewModel().getStoredUser().observe(this, Observer {  user ->
+            if (user != null) {
+                // Go to main activity
+            } else {
+                startActivity(Intent(this, RegisterActivity::class.java))
+            }
+        })
     }
 
 // =================================================================================================

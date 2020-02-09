@@ -19,7 +19,7 @@ object RestAdapter {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://www.google.com")
+            .baseUrl("http://localhost:3000")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)

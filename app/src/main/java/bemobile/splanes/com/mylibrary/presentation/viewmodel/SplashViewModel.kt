@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import bemobile.splanes.com.core.domain.Book
-import bemobile.splanes.com.core.domain.states.RegisterState
+import bemobile.splanes.com.core.domain.User
 import bemobile.splanes.com.core.interactor.book.GetBooksUseCase
+import bemobile.splanes.com.core.interactor.register.GetStoredUserUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.koin.standalone.KoinComponent
@@ -13,12 +14,16 @@ import org.koin.standalone.inject
 
 class SplashViewModel : ViewModel(), KoinComponent {
 
-    private val mUseCase : GetBooksUseCase by inject()
+    private val mGetBooksUseCase : GetBooksUseCase by inject()
 
-    fun getRegisterState() : LiveData<RegisterState> {
-        val liveData = MutableLiveData<RegisterState>()
+    private val mGetStoredUserUseCase : GetStoredUserUseCase by inject()
 
 
+    fun getStoredUser() : LiveData<User?> {
+        val liveData = MutableLiveData<User?>()
+
+        val user = mGetStoredUserUseCase.invoke()
+        liveData.postValue(user)
 
         return liveData
     }
