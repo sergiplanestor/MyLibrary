@@ -1,4 +1,4 @@
-package bemobile.splanes.com.mylibrary.framework
+package bemobile.splanes.com.mylibrary.framework.rest
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

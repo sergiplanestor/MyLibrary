@@ -1,4 +1,4 @@
-package bemobile.splanes.com.mylibrary.framework
+package bemobile.splanes.com.mylibrary.framework.rest
 
 import bemobile.splanes.com.core.domain.Book
 import bemobile.splanes.com.core.domain.Tag
@@ -6,7 +6,7 @@ import bemobile.splanes.com.core.domain.User
 import io.reactivex.Single
 import retrofit2.http.*
 
-interface ApiRepository {
+interface RestApiDataSource {
 
     @POST("/rest/api/login")
     @Headers("Accept: application/json", "charset: UTF-8")
@@ -26,15 +26,15 @@ interface ApiRepository {
 
     @POST("/rest/api/book/add")
     @Headers("Accept: application/json", "charset: UTF-8")
-    fun addBook(@Body book: Book)
+    fun addBook(@Body book: Book) : Single<Boolean>
 
     @POST("/rest/api/book/update")
     @Headers("Accept: application/json", "charset: UTF-8")
-    fun updateBook(@Body book: Book)
+    fun updateBook(@Body book: Book) : Single<Boolean>
 
     @POST("/rest/api/book/remove")
     @Headers("Accept: application/json", "charset: UTF-8")
-    fun removeBook(@Body book: Book)
+    fun removeBook(@Body book: Book) : Single<Boolean>
 
     @GET("/tags")
     @Headers("Accept: application/json", "charset: UTF-8")
@@ -42,9 +42,9 @@ interface ApiRepository {
 
     @POST("/tags/add")
     @Headers("Accept: application/json", "charset: UTF-8")
-    fun addTags(@Body tags: List<Tag>, @Body book: Book)
+    fun addTags(@Body tags: List<Tag>, @Body book: Book) : Single<Boolean>
 
     @POST("/tags/remove")
     @Headers("Accept: application/json", "charset: UTF-8")
-    fun removeTags(@Body tag: Tag, @Body book: Book)
+    fun removeTags(@Body tag: Tag, @Body book: Book) : Single<Boolean>
 }

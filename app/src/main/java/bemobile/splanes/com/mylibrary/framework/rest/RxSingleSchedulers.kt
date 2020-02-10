@@ -1,5 +1,6 @@
-package bemobile.splanes.com.mylibrary.framework
+package bemobile.splanes.com.mylibrary.framework.rest
 
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.SingleTransformer
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +20,8 @@ interface RxSingleSchedulers {
             }
         }
 
-        val TEST_SCHEDULER: RxSingleSchedulers = object : RxSingleSchedulers {
+        val TEST_SCHEDULER: RxSingleSchedulers = object :
+            RxSingleSchedulers {
             override fun <T> applySchedulers(): SingleTransformer<T, T> {
                 return SingleTransformer { single ->
                     single

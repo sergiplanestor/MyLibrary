@@ -9,9 +9,9 @@ import bemobile.splanes.com.core.data.repository.UserRepository
 import bemobile.splanes.com.core.interactor.book.GetBooksUseCase
 import bemobile.splanes.com.core.interactor.register.GetStoredUserUseCase
 import bemobile.splanes.com.core.interactor.register.RegisterUserUseCase
-import bemobile.splanes.com.mylibrary.framework.RestAdapter
-import bemobile.splanes.com.mylibrary.framework.ApiRepository
-import bemobile.splanes.com.mylibrary.framework.book.RestBookDataSource
+import bemobile.splanes.com.mylibrary.framework.book.BookService
+import bemobile.splanes.com.mylibrary.framework.rest.RestAdapter
+import bemobile.splanes.com.mylibrary.framework.rest.RestApiDataSource
 import bemobile.splanes.com.mylibrary.framework.tag.RestTagDataSource
 import bemobile.splanes.com.mylibrary.framework.user.UserService
 import org.koin.dsl.module.module
@@ -25,7 +25,7 @@ val repositoryModule = module(override = true) {
 
 /* DataSources */
 val dataSourceModule = module(override = true) {
-    factory<BookDataSource> { RestBookDataSource(get()) }
+    factory<BookDataSource> { BookService(get()) }
     factory<TagDataSource> { RestTagDataSource(get()) }
     factory<UserDataSource> { UserService(get()) }
 }
@@ -39,5 +39,5 @@ val useCaseModule = module(override = true) {
 
 /* Rest */
 val networkModule = module(override = true) {
-    single { RestAdapter.createService(ApiRepository::class.java) }
+    single { RestAdapter.createService(RestApiDataSource::class.java) }
 }
