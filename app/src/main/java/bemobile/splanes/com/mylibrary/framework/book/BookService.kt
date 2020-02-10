@@ -2,10 +2,6 @@ package bemobile.splanes.com.mylibrary.framework.book
 
 class BookService(private val restApiRepository: RestApiRepository) : BookDataSource {
     
-    companion object {
-        EXPIRATION_DATA = 3600000 // 1h
-    }
-    
     private val bookCache: MutableList<Book> = listOf<Book>().toMutableList()
     private var nextUpdate: Long = 0L
     
