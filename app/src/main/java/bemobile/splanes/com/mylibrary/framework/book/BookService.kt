@@ -13,7 +13,7 @@ class BookService(private val restApiRepository: RestApiRepository) : BookDataSo
     }
     
     override suspend fun fetchAll(): List<Book> {
-        if (RestUtils.isDataExpirated<Book>(bookCache, out nextUpdate)) {
+        if (RestUtils.isDataExpirated<Book>(bookCache, nextUpdate)) {
             // TODO: Rest call
         } else {
             // TODO: Cache 
