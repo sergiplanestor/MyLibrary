@@ -16,28 +16,28 @@ import bemobile.splanes.com.mylibrary.framework.tag.RestTagDataSource
 import bemobile.splanes.com.mylibrary.framework.user.UserService
 import org.koin.dsl.module.module
 
-val appModule = module(override = true) {
-
-
-}
-
-val networkModule = module(override = true) {
-
-    /* Repositories */
+/* Repositories */
+val repositoryModule = module(override = true) {
     factory { BookRepository(get()) }
     factory { TagRepository(get()) }
     factory { UserRepository(get()) }
+}
 
-    /* DataSources */
+/* DataSources */
+val dataSourceModule = module(override = true) {
     factory<BookDataSource> { RestBookDataSource(get()) }
     factory<TagDataSource> { RestTagDataSource(get()) }
     factory<UserDataSource> { UserService(get()) }
+}
 
-    /* UseCases */
+/* UseCases */
+val dataSourceModule = module(override = true) {
     factory { GetBooksUseCase(get()) }
     factory { GetStoredUserUseCase(get()) }
     factory { RegisterUserUseCase(get()) }
+}
 
-    /* Rest */
+/* Rest */
+val networkModule = module(override = true) {
     single { RestAdapter.createService(ApiRepository::class.java) }
 }
