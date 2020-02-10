@@ -1,6 +1,7 @@
 package bemobile.splanes.com.mylibrary.presentation.view
 
 import android.view.View
+import bemobile.splanes.com.core.domain.User
 import bemobile.splanes.com.mylibrary.R
 import bemobile.splanes.com.mylibrary.presentation.common.BaseActivity
 import bemobile.splanes.com.mylibrary.presentation.viewmodel.RegisterViewModel
@@ -9,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 class RegisterActivity : BaseActivity<RegisterViewModel>(), View.OnClickListener {
 
 // =================================================================================================
-// Init views
+// Views
 // =================================================================================================
 
     override fun initializeViews() {
@@ -17,12 +18,45 @@ class RegisterActivity : BaseActivity<RegisterViewModel>(), View.OnClickListener
         registerButton.setOnClickListener(this)
     }
 
+    private fun clearFieldError() {
+        usernameField.error = null
+        pwdField.error = null
+        pwd2Field.error = null
+    }
+
+    private fun showFieldError(field: String, error: Int) {
+        val errorStr = getString(error)
+        when(field) {
+            "username" -> usernameField.error = errorStr
+            "pwd" -> pwdField.error = errorStr
+            "pwd2" -> pwd2Field.error = errorStr
+            "pwds" ->  {
+                pwdField.error = errorStr
+                pwd2Field.error = errorStr
+            }
+        }
+    }
+
 // =================================================================================================
 // View.OnClickListener impl
 // =================================================================================================
 
     override fun onClick(v: View?) {
+        clearFieldError()
+        val state = getViewModel().getFieldsState(
+            usernameEditText.text?.toString(),
+            pwdEditText.text?.toString(),
+            pwd2EditText.text?.toString()
+        )
 
+        if (state.status) {
+            getViewModel().registerUser(User(
+                usernameEditText.text.toString(),
+                pwdEditText.text.toString()
+            ))
+        } else {
+            showFieldError(state.errorField!!, state.errorMessage!!)
+        }
     }
 
 // =================================================================================================

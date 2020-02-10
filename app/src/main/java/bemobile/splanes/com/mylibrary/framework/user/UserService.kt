@@ -10,7 +10,7 @@ class UserService(private val apiRepository: ApiRepository) : UserDataSource {
         return null
     }
 
-    override suspend fun registerUser(user: User) {
-
+    override suspend fun registerUser(user: User) : Boolean {
+        return apiRepository.register(user).blockingGet()
     }
 }

@@ -6,5 +6,5 @@ interface UserDataSource {
 
     fun getStoredUser() : User?
 
-    suspend fun registerUser(user: User)
+    suspend fun registerUser(user: User) : Boolean
 }

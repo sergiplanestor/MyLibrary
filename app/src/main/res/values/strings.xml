@@ -9,4 +9,8 @@
     <string name="register_password">Enter password</string>
     <string name="register_password2">Repeat password</string>
 
+    <string name="error_empty_field">This field can not be empty</string>
+    <string name="error_pwd_invalid">Password should be, at least, 8 chars long</string>
+    <string name="error_pwd_not_match">Passwords doesn\'t match</string>
+
 </resources>

@@ -8,6 +8,7 @@ import bemobile.splanes.com.core.data.repository.TagRepository
 import bemobile.splanes.com.core.data.repository.UserRepository
 import bemobile.splanes.com.core.interactor.book.GetBooksUseCase
 import bemobile.splanes.com.core.interactor.register.GetStoredUserUseCase
+import bemobile.splanes.com.core.interactor.register.RegisterUserUseCase
 import bemobile.splanes.com.mylibrary.framework.RestAdapter
 import bemobile.splanes.com.mylibrary.framework.ApiRepository
 import bemobile.splanes.com.mylibrary.framework.book.RestBookDataSource
@@ -35,6 +36,7 @@ val networkModule = module(override = true) {
     /* UseCases */
     factory { GetBooksUseCase(get()) }
     factory { GetStoredUserUseCase(get()) }
+    factory { RegisterUserUseCase(get()) }
 
     /* Rest */
     single { RestAdapter.createService(ApiRepository::class.java) }
