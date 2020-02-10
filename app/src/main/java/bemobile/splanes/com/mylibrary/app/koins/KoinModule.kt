@@ -31,7 +31,7 @@ val dataSourceModule = module(override = true) {
 }
 
 /* UseCases */
-val dataSourceModule = module(override = true) {
+val useCaseModule = module(override = true) {
     factory { GetBooksUseCase(get()) }
     factory { GetStoredUserUseCase(get()) }
     factory { RegisterUserUseCase(get()) }
