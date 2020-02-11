@@ -1,5 +1,11 @@
 package bemobile.splanes.com.mylibrary.framework.rest
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 object RestUtils {
 
@@ -26,6 +32,32 @@ object RestUtils {
         Pair(Domain.BOOK, 0L),
         Pair(Domain.TAG, 0L)
     ).toMutableMap()
+
+// =================================================================================================
+// Rest Factory
+// =================================================================================================
+
+    object RestFactory {
+
+        fun <T> createService(clazz: Class<T>): T {
+
+            val interceptor = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
+
+            return Retrofit.Builder()
+                .baseUrl("http://192.168.1.36:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
+                .build()
+                .create(clazz)
+        }
+    }
 
 // =================================================================================================
 // Util methods
