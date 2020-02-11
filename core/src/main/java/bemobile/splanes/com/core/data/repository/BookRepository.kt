@@ -5,13 +5,42 @@ import bemobile.splanes.com.core.domain.Book
 
 class BookRepository(private val bookDataSource: BookDataSource) {
 
-    suspend fun addBook(book: Book) = bookDataSource.add(book)
+    suspend fun addBook(
 
-    suspend fun getBooks() : List<Book> = bookDataSource.fetchAll()
+        book: Book,
+        onSuccess: (isBookAdded: Boolean) -> Unit,
+        onError: (throwable: Throwable) -> Unit
 
-    suspend fun getBook(bookId: Int) : Book = bookDataSource.fetch(bookId)
+    ) = bookDataSource.add(book = book, onRequestSuccess = onSuccess, onRequestError = onError)
 
-    suspend fun removeBook(book: Book) = bookDataSource.remove(book)
+    suspend fun getBooks(
 
-    suspend fun updateBook(book: Book) = bookDataSource.update(book)
+        onSuccess: (books: List<Book>) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+
+    ) = bookDataSource.fetchAll(onRequestSuccess = onSuccess, onRequestError = onError)
+
+    suspend fun getBook(
+
+        bookId: Int,
+        onSuccess: (book: Book) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+
+    ) = bookDataSource.fetch(id = bookId, onRequestSuccess = onSuccess, onRequestError = onError)
+
+    suspend fun removeBook(
+
+        book: Book,
+        onSuccess: (isBookRemoved: Boolean) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+
+    ) = bookDataSource.remove(book = book, onRequestSuccess = onSuccess, onRequestError = onError)
+
+    suspend fun updateBook(
+
+        book: Book,
+        onSuccess: (isBookUpdated: Boolean) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+
+    ) = bookDataSource.update(book = book, onRequestSuccess = onSuccess, onRequestError = onError)
 }
