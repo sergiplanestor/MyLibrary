@@ -7,6 +7,8 @@ class UserRepository(private val userDataSource: UserDataSource) {
 
     fun getStoredUser() : User? = userDataSource.getStoredUser()
 
+    fun storeUser(user: User) = userDataSource.storeUser(user)
+
     suspend fun registerUser(
 
         user: User,
