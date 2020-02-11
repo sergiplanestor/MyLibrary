@@ -28,7 +28,7 @@ val repositoryModule = module(override = true) {
 val dataSourceModule = module(override = true) {
     factory<BookDataSource> { BookService(get()) }
     factory<TagDataSource> { RestTagDataSource(get()) }
-    factory<UserDataSource> { UserService(get()) }
+    factory<UserDataSource> { UserService(get(), get()) }
 }
 
 /* UseCases */
