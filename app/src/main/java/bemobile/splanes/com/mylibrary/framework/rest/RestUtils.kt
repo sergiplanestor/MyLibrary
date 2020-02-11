@@ -31,8 +31,8 @@ object RestUtils {
 // Util methods
 // =================================================================================================
 
-    fun <T> isDataExpired(domain: Domain, items: List<T>) : Boolean {
-        if (items.isEmpty()) {
+    fun <T> isDataExpired(domain: Domain, data: T?) : Boolean {
+        if (data == null || (data is List<*> && data.isEmpty())) {
             return true
         }
         val currentMillis = System.currentTimeMillis()
@@ -41,13 +41,6 @@ object RestUtils {
             true
         } else {
             false
-        }
-    }
-
-    fun errorConsumer() : (error: Throwable) -> Unit {
-        return {
-            // FIXME: Show pop up or something like that?
-            it.printStackTrace()
         }
     }
 }
