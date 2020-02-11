@@ -1,6 +1,7 @@
 package bemobile.splanes.com.mylibrary.presentation.view
 
 import android.view.View
+import androidx.lifecycle.Observer
 import bemobile.splanes.com.core.domain.User
 import bemobile.splanes.com.mylibrary.R
 import bemobile.splanes.com.mylibrary.presentation.common.BaseActivity
@@ -50,10 +51,19 @@ class RegisterActivity : BaseActivity<RegisterViewModel>(), View.OnClickListener
         )
 
         if (state.status) {
-            getViewModel().registerUser(User(
-                usernameEditText.text.toString(),
-                pwdEditText.text.toString()
-            ))
+
+            getViewModel().registerUser(
+                User(usernameEditText.text.toString(), pwdEditText.text.toString())
+            ).observe(this, Observer { success ->
+
+                if (success) {
+                    // Navigate to main
+                } else {
+                    // show error
+                }
+
+            })
+
         } else {
             showFieldError(state.errorField!!, state.errorMessage!!)
         }
