@@ -10,8 +10,8 @@ import bemobile.splanes.com.core.interactor.book.GetBooksUseCase
 import bemobile.splanes.com.core.interactor.register.GetStoredUserUseCase
 import bemobile.splanes.com.core.interactor.register.RegisterUserUseCase
 import bemobile.splanes.com.mylibrary.framework.book.BookService
-import bemobile.splanes.com.mylibrary.framework.rest.RestAdapter
 import bemobile.splanes.com.mylibrary.framework.rest.RestApiDataSource
+import bemobile.splanes.com.mylibrary.framework.rest.RestUtils
 import bemobile.splanes.com.mylibrary.framework.tag.RestTagDataSource
 import bemobile.splanes.com.mylibrary.framework.user.UserService
 import org.koin.dsl.module.module
@@ -39,5 +39,5 @@ val useCaseModule = module(override = true) {
 
 /* Rest */
 val networkModule = module(override = true) {
-    single { RestAdapter.createService(RestApiDataSource::class.java) }
+    single { RestUtils.RestFactory.createService(RestApiDataSource::class.java) }
 }
