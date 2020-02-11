@@ -5,18 +5,25 @@ import bemobile.splanes.com.core.domain.Book
 import bemobile.splanes.com.mylibrary.framework.rest.RestApiDataSource
 import bemobile.splanes.com.mylibrary.framework.rest.RestUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class BookService(private val restApiDataSource: RestApiDataSource) : BookDataSource {
 
 // =================================================================================================
+// Constants
+// =================================================================================================
+    
+    private companion object {
+        private const val FETCH_ALL = "book.service.fetch.all"
+        private const val FETCH_ONE = "book.service.fetch.one"
+    }
+    
+// =================================================================================================
 // Attributes
 // =================================================================================================
-
+    
     private var booksCache: MutableList<Book> = listOf<Book>().toMutableList()
     private var bookCache: Book? = null
-    private val domain: RestUtils.Domain = RestUtils.Domain.BOOK
 
 // =================================================================================================
 // BookDataSource Impl
@@ -45,7 +52,7 @@ class BookService(private val restApiDataSource: RestApiDataSource) : BookDataSo
         onRequestSuccess: (books: List<Book>) -> Unit,
         onRequestError: (throwable: Throwable) -> Unit
     ) {
-        if (RestUtils.isDataExpired(domain, booksCache)) {
+        if (RestUtils.isDataExpired(FETCH_ALL, booksCache)) {
 
             val disposable = restApiDataSource.fetchBooks()
                 .subscribeOn(Schedulers.io())
@@ -68,7 +75,7 @@ class BookService(private val restApiDataSource: RestApiDataSource) : BookDataSo
         onRequestSuccess: (book: Book) -> Unit,
         onRequestError: (throwable: Throwable) -> Unit
     ) {
-        if (RestUtils.isDataExpired(domain, bookCache)) {
+        if (RestUtils.isDataExpired(FETCH_ONE, bookCache)) {
 
             val disposable = restApiDataSource.fetchBook(bookId = id)
                 .subscribeOn(Schedulers.io())
