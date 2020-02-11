@@ -20,9 +20,13 @@ class BookService(private val restApiDataSource: RestApiDataSource) : BookDataSo
 // BookDataSource Impl
 // =================================================================================================
 
-    override suspend fun add(book: Book, callback: (success: Boolean) -> Unit) {
+    override suspend fun add(
+        book: Book,
+        onRequestSuccess: (isBookAdded: Boolean) -> Unit,
+        onRequestError: (throwable: Throwable) -> Unit
+    ) {
 
-        val disposable= restApiDataSource.addBook(book)
+        val disposable = restApiDataSource.addBook(book)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -30,14 +34,17 @@ class BookService(private val restApiDataSource: RestApiDataSource) : BookDataSo
                     if (success) {
                         bookCache.add(book)
                     }
-                    callback(success)
+                    onRequestSuccess(success)
                 },
-                RestUtils.errorConsumer()
+                onRequestError
             )
+        
     }
-    
-    override suspend fun fetchAll(callback: (books: List<Book>) -> Unit) {
 
+    override suspend fun fetchAll(
+        onRequestSuccess: (books: List<Book>) -> Unit,
+        onRequestError: (throwable: Throwable) -> Unit
+    ) {
         if (RestUtils.isDataExpired(domain, bookCache)) {
 
             val disposable = restApiDataSource.fetchBooks()
@@ -47,20 +54,36 @@ class BookService(private val restApiDataSource: RestApiDataSource) : BookDataSo
                     { books ->
                         bookCache.clear()
                         bookCache.addAll(books)
+                        onRequestSuccess(bookCache)
                     },
-                    RestUtils.errorConsumer()
+                    onRequestError
                 )
         } else {
-            callback(bookCache)
+            onRequestSuccess(bookCache)
         }
     }
-    
-    override suspend fun fetch(id: Int, callback: (book: Book) -> Unit) {
+
+    override suspend fun fetch(
+        id: Int,
+        onRequestSuccess: (book: Book) -> Unit,
+        onRequestError: (throwable: Throwable) -> Unit
+    ) {
+        
     }
-    
-    override suspend fun remove(book: Book, callback: (success: Boolean) -> Unit) {
+
+    override suspend fun remove(
+        book: Book,
+        onRequestSuccess: (isBookRemoved: Boolean) -> Unit,
+        onRequestError: (throwable: Throwable) -> Unit
+    ) {
+        
     }
-    
-    override suspend fun update(book: Book, callback: (success: Boolean) -> Unit) {
+
+    override suspend fun update(
+        book: Book,
+        onRequestSuccess: (isBookUpdated: Boolean) -> Unit,
+        onRequestError: (throwable: Throwable) -> Unit
+    ) {
+        
     }
 }
