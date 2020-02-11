@@ -1,15 +1,17 @@
 package bemobile.splanes.com.mylibrary.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import bemobile.splanes.com.core.domain.User
 import bemobile.splanes.com.core.interactor.register.RegisterUserUseCase
 import bemobile.splanes.com.mylibrary.R
+import bemobile.splanes.com.mylibrary.presentation.common.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class RegisterViewModel : ViewModel(), KoinComponent {
+class RegisterViewModel : BaseViewModel(), KoinComponent {
 
     private val mRegisterUserUseCase: RegisterUserUseCase by inject()
 
@@ -60,12 +62,20 @@ class RegisterViewModel : ViewModel(), KoinComponent {
         return FieldState(status, errorField, errorMessage)
     }
 
-    fun registerUser(user: User) {
+    fun registerUser(user: User) : LiveData<Boolean> {
+        
+        val liveData = MutableLiveData<Boolean>()
+        
         runBlocking(Dispatchers.IO) {
-            val result = mRegisterUserUseCase.invoke(user)
-            if (result) {
-                println("Pooooo")
-            }
+            mRegisterUserUseCase.invoke(
+                user = user,
+                onSuccess = {
+                    liveData.postValue(it)
+                },
+                onError = errorConsumer()
+            )
         }
+        
+        return liveData
     }
 }
