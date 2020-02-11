@@ -13,7 +13,7 @@ import bemobile.splanes.com.mylibrary.framework.book.BookService
 import bemobile.splanes.com.mylibrary.framework.helper.SharedPreferencesHelper
 import bemobile.splanes.com.mylibrary.framework.rest.RestApiDataSource
 import bemobile.splanes.com.mylibrary.framework.rest.RestUtils
-import bemobile.splanes.com.mylibrary.framework.tag.RestTagDataSource
+import bemobile.splanes.com.mylibrary.framework.tag.TagService
 import bemobile.splanes.com.mylibrary.framework.user.UserService
 import org.koin.dsl.module.module
 
@@ -27,7 +27,7 @@ val repositoryModule = module(override = true) {
 /* DataSources */
 val dataSourceModule = module(override = true) {
     factory<BookDataSource> { BookService(get()) }
-    factory<TagDataSource> { RestTagDataSource(get()) }
+    factory<TagDataSource> { TagService(get()) }
     factory<UserDataSource> { UserService(get(), get()) }
 }
 
