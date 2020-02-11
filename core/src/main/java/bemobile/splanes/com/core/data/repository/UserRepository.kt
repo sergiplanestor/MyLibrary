@@ -7,5 +7,11 @@ class UserRepository(private val userDataSource: UserDataSource) {
 
     fun getStoredUser() : User? = userDataSource.getStoredUser()
 
-    suspend fun registerUser(user: User) : Boolean = userDataSource.registerUser(user)
+    suspend fun registerUser(
+
+        user: User,
+        onSuccess: (isUserRegistered: Boolean) -> Unit,
+        onError: (throwable: Throwable) -> Unit
+
+    ) = userDataSource.registerUser(user = user, onRequestSuccess = onSuccess, onRequestError = onError)
 }
