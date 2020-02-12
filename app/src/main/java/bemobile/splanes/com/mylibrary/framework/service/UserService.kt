@@ -14,35 +14,38 @@ class UserService(
     
     override fun getStoredUser(): User? {
 
+        val id = sharedPreferencesHelper.getInt(SharedPreferencesHelper.PREF_ID)
         val name = sharedPreferencesHelper.getString(SharedPreferencesHelper.PREF_USR)
         val pwd = sharedPreferencesHelper.getString(SharedPreferencesHelper.PREF_PWD)
 
-        return  if (name != null && pwd != null) {
-            User(name, pwd)
+        return  if (id != null && name != null && pwd != null) {
+            User(id, name, pwd)
         } else {
             null
         }
     }
 
     override fun storeUser(user: User) {
+        sharedPreferencesHelper.putInt(SharedPreferencesHelper.PREF_ID, user.id!!)
         sharedPreferencesHelper.putString(SharedPreferencesHelper.PREF_USR, user.name)
         sharedPreferencesHelper.putString(SharedPreferencesHelper.PREF_PWD, user.pwd)
     }
 
     override suspend fun registerUser(
         user: User,
-        onRequestSuccess: (isUserRegistered: Boolean) -> Unit,
+        onRequestSuccess: (success: Boolean) -> Unit,
         onRequestError: (throwable: Throwable) -> Unit
     ) {
         val disposable = restApiDataSource.register(user = user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { success: Boolean ->
-                    if (success) {
+                { userId: Int? ->
+                    if (userId != null) {
+                        user.id = userId
                         storeUser(user)
                     }
-                    onRequestSuccess(success)
+                    onRequestSuccess(userId != null)
                 },
                 onRequestError
             )

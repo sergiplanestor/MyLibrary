@@ -14,7 +14,7 @@ interface RestApiDataSource {
 
     @POST("/rest/api/register")
     @Headers("Accept: application/json", "charset: UTF-8")
-    fun register(@Body user: User) : Single<Boolean>
+    fun register(@Body user: User) : Single<Int?>
 
     @GET("/rest/api/books")
     @Headers("Accept: application/json", "charset: UTF-8")

@@ -11,6 +11,7 @@ class SharedPreferencesHelper(context: Context) {
 
     companion object Key {
         private const val SHARED_NAME: String = "my_library.shared.prefs"
+        const val PREF_ID: String = "my_library.shared.prefs._id"
         const val PREF_USR: String = "my_library.shared.prefs.usr"
         const val PREF_PWD: String = "my_library.shared.prefs.pwd"
     }
@@ -37,4 +38,10 @@ class SharedPreferencesHelper(context: Context) {
 
     fun getString(key: String) : String? = mSharedPrefs.getString(key, null)
 
+    fun putInt(key: String, value: Int) = mSharedPrefs.edit().run { putInt(key, value) }.apply()
+
+    fun getInt(key: String) : Int? {
+        val value = mSharedPrefs.getInt(key, -1)
+        return if (value == -1) null else value
+    }
 }

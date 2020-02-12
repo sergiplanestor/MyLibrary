@@ -20,7 +20,7 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     private fun checkRegisterState() {
         getViewModel().getStoredUser().observe(this, Observer {  user ->
             if (user != null) {
-                // Go to main activity
+                startActivity(Intent(this, MainActivity::class.java))
             } else {
                 startActivity(Intent(this, RegisterActivity::class.java))
             }

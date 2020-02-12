@@ -10,7 +10,7 @@ interface UserDataSource {
 
     suspend fun registerUser(
         user: User,
-        onRequestSuccess: (isUserRegistered: Boolean) -> Unit,
+        onRequestSuccess: (success: Boolean) -> Unit,
         onRequestError: (throwable: Throwable) -> Unit
     )
 }
