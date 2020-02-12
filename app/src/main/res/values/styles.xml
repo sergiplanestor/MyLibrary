@@ -32,7 +32,11 @@
 <!-- =========================================================================================== -->
 
     <style name="Body" parent="Text.Regular">
+        <item name="android:textSize">15sp</item>
+    </style>
 
+    <style name="Body.Secondary">
+        <item name="android:textColor">@color/colorSecondary</item>
     </style>
 
     <style name="Title" parent="Text.Medium">
