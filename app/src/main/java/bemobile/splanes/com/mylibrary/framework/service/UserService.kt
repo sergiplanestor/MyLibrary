@@ -1,4 +1,4 @@
-package bemobile.splanes.com.mylibrary.framework.user
+package bemobile.splanes.com.mylibrary.framework.service
 
 import bemobile.splanes.com.core.data.datasource.UserDataSource
 import bemobile.splanes.com.core.domain.User

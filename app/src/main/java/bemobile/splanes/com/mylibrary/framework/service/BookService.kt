@@ -1,4 +1,4 @@
-package bemobile.splanes.com.mylibrary.framework.book
+package bemobile.splanes.com.mylibrary.framework.service
 
 import bemobile.splanes.com.core.data.datasource.BookDataSource
 import bemobile.splanes.com.core.domain.Book

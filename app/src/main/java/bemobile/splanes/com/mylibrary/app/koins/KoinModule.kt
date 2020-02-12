@@ -9,12 +9,12 @@ import bemobile.splanes.com.core.data.repository.UserRepository
 import bemobile.splanes.com.core.interactor.book.GetBooksUseCase
 import bemobile.splanes.com.core.interactor.register.GetStoredUserUseCase
 import bemobile.splanes.com.core.interactor.register.RegisterUserUseCase
-import bemobile.splanes.com.mylibrary.framework.book.BookService
+import bemobile.splanes.com.mylibrary.framework.service.BookService
 import bemobile.splanes.com.mylibrary.framework.helper.SharedPreferencesHelper
 import bemobile.splanes.com.mylibrary.framework.rest.RestApiDataSource
 import bemobile.splanes.com.mylibrary.framework.rest.RestUtils
-import bemobile.splanes.com.mylibrary.framework.tag.TagService
-import bemobile.splanes.com.mylibrary.framework.user.UserService
+import bemobile.splanes.com.mylibrary.framework.service.TagService
+import bemobile.splanes.com.mylibrary.framework.service.UserService
 import org.koin.dsl.module.module
 
 /* Repositories */

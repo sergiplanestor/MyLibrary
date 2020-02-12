@@ -1,4 +1,4 @@
-package bemobile.splanes.com.mylibrary.framework.tag
+package bemobile.splanes.com.mylibrary.framework.service
 
 import android.util.SparseArray
 import androidx.core.util.getOrDefault
